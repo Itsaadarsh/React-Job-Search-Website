@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ChakraProvider, Input, Flex, Box, Text, Spacer, Container, Checkbox } from '@chakra-ui/react';
+import { Jobs } from './components/Jobs';
+import { JOB } from './interface/JOB';
 
 const BASE_URL: string = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
-
-interface JOB {
-  id: string;
-  type: string;
-  url: string;
-  created_at: string;
-  company: string;
-  company_url: string;
-  location: string;
-  title: string;
-  description: string;
-  how_to_apply: string;
-  company_logo: string;
-}
 
 function App() {
   const [role, setRole] = useState(() => {
@@ -77,25 +65,7 @@ function App() {
         <Box my='10'>
           <Flex flexWrap='wrap'>
             {jobs.map((job: JOB) => {
-              return (
-                <React.Fragment>
-                  <Box
-                    w='48%'
-                    h='35vh'
-                    p='5'
-                    m='7px'
-                    // borderWidth='7px'
-                    // borderColor='blue.50'
-                    rounded='md'
-                    overflow='hidden'
-                    bg='gray.100'
-                    color='black'
-                  >
-                    {job.title}
-                  </Box>
-                  <Spacer />
-                </React.Fragment>
-              );
+              return <Jobs job={job} />;
             })}
           </Flex>
         </Box>
