@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ChakraProvider, Input, Flex, Box, Text } from '@chakra-ui/react';
+import { ChakraProvider, Input, Flex, Box, Text, Spacer, Container, Checkbox } from '@chakra-ui/react';
 
 const BASE_URL: string = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
 
@@ -47,35 +47,58 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Box fontFamily='Righteous' boxShadow='dark-lg' p='6' mx='60' my='30' rounded='md' bg='blue.50'>
+      <Box fontFamily='Righteous' boxShadow='dark-lg' p='6' mx='40' my='30' rounded='md' bg='blue.100'>
         <Text fontSize='5xl' textAlign='center' pb='5' fontStyle='oblique' fontWeight='bold'>
           Job Finder
         </Text>
         <Flex>
           <Input
-            variant='flushed'
+            variant='filled'
             type='text'
             placeholder='Role'
             value={role}
             onChange={e => setRole(e.target.value)}
+            m='5'
+            w='45%'
           />
           <Input
-            variant='flushed'
+            variant='filled'
             type='text'
             placeholder='Location'
             value={location}
             onChange={e => setLocation(e.target.value)}
+            w='45%'
+            m='5'
           />
+          <Checkbox colorScheme='green' defaultIsChecked w='10%'>
+            Full Time
+          </Checkbox>
         </Flex>
-        <Flex justifyContent='space-between'>
-          {jobs.map((job: JOB) => {
-            return (
-              <Box bg='black' w='100%' p={4} color='white'>
-                {job.title}
-              </Box>
-            );
-          })}
-        </Flex>
+        <Box my='10'>
+          <Flex flexWrap='wrap'>
+            {jobs.map((job: JOB) => {
+              return (
+                <React.Fragment>
+                  <Box
+                    w='48%'
+                    h='35vh'
+                    p='5'
+                    m='7px'
+                    // borderWidth='7px'
+                    // borderColor='blue.50'
+                    rounded='md'
+                    overflow='hidden'
+                    bg='gray.100'
+                    color='black'
+                  >
+                    {job.title}
+                  </Box>
+                  <Spacer />
+                </React.Fragment>
+              );
+            })}
+          </Flex>
+        </Box>
       </Box>
     </ChakraProvider>
   );
