@@ -32,11 +32,13 @@ function App() {
 
   useEffect(() => {
     async function asyncFetcher() {
-      const res = await axios.get(BASE_URL);
+      const res = await axios.get(BASE_URL, { params: { description: role, location: location } });
+      console.log(res.data);
+
       setjobs(res.data);
     }
     asyncFetcher();
-  }, []);
+  }, [role, location]);
 
   return (
     <div>
