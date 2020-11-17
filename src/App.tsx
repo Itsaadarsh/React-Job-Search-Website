@@ -1,4 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+
+const BASE_URL: string = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
+
+interface JOB {
+  id: string;
+  type: string;
+  url: string;
+  created_at: string;
+  company: string;
+  company_url: string;
+  location: string;
+  title: string;
+  description: string;
+  how_to_apply: string;
+  company_logo: string;
+}
 
 function App() {
   const [role, setRole] = useState(() => {
@@ -8,8 +25,16 @@ function App() {
     return '';
   });
   const [fulltime, setFulltime] = useState(false);
+  const [jobs, setjobs] = useState<AxiosResponse | null | void>(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function asyncFetcher() {
+      const res = await axios.get(BASE_URL);
+      console.log(res);
+      setjobs(res);
+    }
+    asyncFetcher();
+  }, []);
 
   return (
     <div>
@@ -21,6 +46,7 @@ function App() {
         onChange={e => setLocation(e.target.value)}
       />
       <input type='checkbox' value='Full time' />
+      {jobs}
     </div>
   );
 }
