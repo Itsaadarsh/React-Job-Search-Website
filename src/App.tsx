@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ChakraProvider, Input, Flex, Box, Text, Spacer, Container, Checkbox } from '@chakra-ui/react';
+import { ChakraProvider, Input, Flex, Box, Text, Checkbox } from '@chakra-ui/react';
 import { Jobs } from './components/Jobs';
 import { JOB } from './interface/JOB';
 
@@ -15,7 +15,7 @@ function App() {
     return '';
   });
 
-  // const [fulltime, setFulltime] = useState(false);
+  const [fulltime, setFulltime] = useState(false);
 
   const [jobs, setjobs] = useState<JOB[]>([]);
 
@@ -25,7 +25,6 @@ function App() {
         const res = await axios.get(BASE_URL, { params: { description: role, location: location } });
         console.log(res.data);
         setjobs(res.data);
-        // console.log('Dummy');
       } catch (err) {
         console.log(err);
       }
@@ -65,7 +64,7 @@ function App() {
         <Box my='10'>
           <Flex flexWrap='wrap'>
             {jobs.map((job: JOB) => {
-              return <Jobs job={job} />;
+              return <Jobs job={job} key={job.id} />;
             })}
           </Flex>
         </Box>
